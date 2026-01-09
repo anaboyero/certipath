@@ -3,3 +3,4 @@
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/domain/User.java
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/domain/Enrollment.java
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/application/EnrollmentUseCase.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/application/exceptions/InvalidEnrollmentException.java
