@@ -4,7 +4,6 @@ import com.certipath.application.exceptions.InvalidEnrollmentException;
 import com.certipath.domain.Enrollment;
 import com.certipath.domain.Route;
 import com.certipath.domain.User;
-import org.springframework.stereotype.Service;
 
 public class EnrollmentUseCase {
 
@@ -18,10 +17,8 @@ public class EnrollmentUseCase {
         if (routeId == null || routeId.isEmpty()) {
             throw new InvalidEnrollmentException("User or route not valid");
         }
-        else {
-            User user = new User(userId, "Sample User");
-            Route route = new Route(routeId, "Sample Route");
-            return new Enrollment(user, route);
-        }
+        User user = new User(userId, "Sample User");
+        Route route = new Route(routeId, "Sample Route");
+        return new Enrollment(user, route);
     }
 }
