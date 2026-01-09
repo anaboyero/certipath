@@ -7,13 +7,13 @@ public class User {
     public User() {
     }
 
-    public User (String id, String name) {
-        this.id = id;
+    public User(String name) {
         this.name = name;
     }
 
-    public User(String id) {
+    public User (String id, String name) {
         this.id = id;
+        this.name = name;
     }
 
     public String getId() {

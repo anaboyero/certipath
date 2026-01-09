@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: com.certipath.application.EnrollmentServiceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.018 s <<< FAILURE! -- in com.certipath.application.EnrollmentServiceTest
+com.certipath.application.EnrollmentServiceTest.callEnrollmentServiceTest -- Time elapsed: 0.011 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.certipath.application.EnrollmentService.enroll(com.certipath.domain.User, com.certipath.domain.Route)" because "this.enrollmentService" is null
+	at com.certipath.application.EnrollmentServiceTest.callEnrollmentServiceTest(EnrollmentServiceTest.java:21)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

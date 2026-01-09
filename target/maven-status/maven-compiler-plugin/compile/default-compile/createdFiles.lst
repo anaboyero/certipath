@@ -1,3 +1,4 @@
 com/certipath/domain/Route.class
-com/certipath/domain/User.class
+com/certipath/application/EnrollmentUseCase.class
 com/certipath/domain/Enrollment.class
+com/certipath/domain/User.class
