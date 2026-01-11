@@ -8,7 +8,22 @@ import jakarta.persistence.Id;
 @Entity
 public class UserEntity {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.UUID)
     String id;
     String name;
+
+    public UserEntity(String name) {
+        this.name = name;
+    }
+
+    public UserEntity() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

@@ -32,9 +32,6 @@ public class CreateEnrollmentUseCaseTest {
     User mockUser = new User("mock-user-123", "Mocked User");
     Route mockRoute = new Route("mock-route-456", "Mocked Route");
 
-    User realUser = new User("real-user-789", "Real User");
-    Route realRoute = new Route("real-route-012", "Real Route");
-
     // servicio a probar
     private EnrollmentUseCase enrollmentUseCase;
 
@@ -45,17 +42,17 @@ public class CreateEnrollmentUseCaseTest {
 
     @Test
     void testValidEnrollment() {
-        // Given any valid user ID and route ID.
+        // Given an existing user and an existing route are returned by the ports
 
         when(userPort.findUserById(anyString()))
                 .thenReturn(Optional.of(mockUser));
         when(routePort.findRouteById(anyString()))
                 .thenReturn(Optional.of(mockRoute));
 
-        // When CreateEnrollmentUseCase is executed
+        // When the enrollment use case is executed with valid IDs
         Enrollment enrollment = enrollmentUseCase.enroll("123", "256");
 
-        // Then verify the enrollment is created correctly.
+        // Then a new enrollment is created with the expected data
         assertThat(enrollment.getUser()).isEqualTo(mockUser);
         assertThat(enrollment.getRoute()).isEqualTo(mockRoute);
         assertThat(enrollment.getEnrolledAt()).isNotNull();

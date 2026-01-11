@@ -1,7 +1,5 @@
 package com.certipath.application;
 
-import com.certipath.adapters.entities.RouteEntity;
-import com.certipath.adapters.entities.UserEntity;
 import com.certipath.application.exceptions.InvalidEnrollmentException;
 import com.certipath.domain.Enrollment;
 import com.certipath.domain.Route;

@@ -1,6 +1,15 @@
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/domain/Route.java
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/application/EnrollmentService.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/adapters/RouteRepository.java
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/domain/User.java
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/domain/Enrollment.java
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/application/EnrollmentUseCase.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/CertipathApplication.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/adapters/entities/RouteEntity.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/adapters/entities/UserEntity.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/application/RoutePort.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/adapters/JpaRouteAdapter.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/adapters/JpaUserAdapter.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/adapters/UserRepository.java
+/Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/application/UserPort.java
 /Users/ana.boyero/Workspaces/proyectos-personales/certipath/src/main/java/com/certipath/application/exceptions/InvalidEnrollmentException.java

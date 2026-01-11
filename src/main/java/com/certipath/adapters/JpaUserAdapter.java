@@ -1,15 +1,18 @@
 package com.certipath.adapters;
 
+import com.certipath.adapters.entities.UserEntity;
 import com.certipath.application.UserPort;
 import com.certipath.domain.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public class UserAdapter implements UserPort {
+@Repository
+public class JpaUserAdapter implements UserPort {
 
     private final UserRepository userRepository;
 
-    public UserAdapter(UserRepository userRepositoryJpa) {
+    public JpaUserAdapter(UserRepository userRepositoryJpa) {
         this.userRepository = userRepositoryJpa;
     }
 
@@ -25,7 +28,13 @@ public class UserAdapter implements UserPort {
 
     @Override
     public Optional<User> findUserById(String userId) {
-        return Optional.empty();
+        Optional<UserEntity> result = userRepository.findById(userId);
+        if(result.isEmpty()) {
+            return Optional.empty();
+        }
+        else {
+            return Optional.of(new User(result.get().getId(), result.get().getName()));
+        }
     }
 
 }

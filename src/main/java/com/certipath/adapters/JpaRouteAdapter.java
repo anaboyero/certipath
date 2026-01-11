@@ -5,10 +5,10 @@ import com.certipath.domain.Route;
 
 import java.util.Optional;
 
-public class RouteAdapter implements RoutePort {
+public class JpaRouteAdapter implements RoutePort {
     private final RouteRepository routeRepository;
 
-    public RouteAdapter(RouteRepository routeRepository) {
+    public JpaRouteAdapter(RouteRepository routeRepository) {
         this.routeRepository = routeRepository;
     }
 
