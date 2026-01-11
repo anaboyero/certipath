@@ -22,8 +22,10 @@ public class JpaUserAdapter implements UserPort {
     }
 
     @Override
-    public void saveUser(User user) {
-        // de momento nada
+    public User saveUser(User user) {
+        UserEntity userToSave = new UserEntity(user.getName());
+        UserEntity savedUserEntity = userRepository.save(userToSave);
+        return new User(savedUserEntity.getId(), savedUserEntity.getName());
     }
 
     @Override

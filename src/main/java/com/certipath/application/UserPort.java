@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface UserPort {
     Optional<User> findUserById(String userId);
     boolean userExists(String userId);
-    void saveUser(User user);
+    User saveUser(User user);
 }

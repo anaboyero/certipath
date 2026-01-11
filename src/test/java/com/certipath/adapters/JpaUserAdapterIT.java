@@ -17,10 +17,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Import(JpaUserAdapter.class)
 public class JpaUserAdapterIT {
 
-    UserEntity savedUser;
-
-    String userId;
-
     @Autowired JpaUserAdapter jpaUserAdapter;
 
     @Autowired UserRepository userRepository;
@@ -30,17 +26,30 @@ public class JpaUserAdapterIT {
     }
 
     @Test
-    void shouldFindUserById() {
-        // Given a user in the database and an adapter with a jpa user repository.
-        savedUser = userRepository.save(new UserEntity("Test User"));
-        userId = savedUser.getId();
+    void shouldFindUserByIdTest() {
+        // Given a user in the jpa user repository.
+        UserEntity savedUser = userRepository.save(new UserEntity("Test User"));
+        String userId = savedUser.getId();
 
-        // When checking if the user exists
+        // When the adapter checks if the user exists
         Optional<User> result = jpaUserAdapter.findUserById(userId);
 
         // Then the user should be found
         assertThat(result.isPresent()).isTrue();
         assertThat(result.get().getId()).isEqualTo(userId);
+    }
+
+    @Test
+    void shouldSaveUserTest() {
+        // Given a new user without an ID
+        User newUser = new User("New User");
+
+        //When the adapter saves the user
+        User savedUser = jpaUserAdapter.saveUser(newUser);
+
+        // Then the user should be saved in the repository with an ID
+        assertThat(savedUser.getId()).isNotNull();
+
     }
 
 
