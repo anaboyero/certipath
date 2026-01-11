@@ -4,6 +4,8 @@ import com.certipath.application.exceptions.InvalidEnrollmentException;
 import com.certipath.domain.Enrollment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -35,8 +37,7 @@ public class CreateEnrollmentUseCaseTest {
 
 
     @Test
-    void testNotValidEnrollment_throwsException() {
-        // Given a non valid user ID or route ID
+    void testNullIdEnrollment_throwsException() {
         String NON_VALID_USER_ID = null;
         String NON_VALID_ROUTE_ID = null;
 
@@ -48,5 +49,31 @@ public class CreateEnrollmentUseCaseTest {
                 .isInstanceOf(InvalidEnrollmentException.class)
                 .hasMessage("User or route does not exist");
     }
+
+    @Test
+    void testEmptyEnrollment_throwsException() {
+        // Given a non valid user ID or route ID
+        String NON_VALID_USER_ID = "";
+        String NON_VALID_ROUTE_ID = "";
+
+
+        // Then
+        assertThatThrownBy(() ->
+                enrollmentUseCase.enroll(NON_VALID_USER_ID, NON_VALID_ROUTE_ID)
+        )
+                .isInstanceOf(InvalidEnrollmentException.class)
+                .hasMessage("User or route does not exist");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "   ", "\t", "\n"})
+    void testNonValidEnrollment_throwsException(String userId) {
+        assertThatThrownBy(() ->
+                enrollmentUseCase.enroll(userId, "a route id")
+        )
+                .isInstanceOf(InvalidEnrollmentException.class)
+                .hasMessage("User or route does not exist");
+    }
+
 
 }
