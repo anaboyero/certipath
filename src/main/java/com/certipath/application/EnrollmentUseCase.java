@@ -12,13 +12,13 @@ public class EnrollmentUseCase {
 
     Enrollment enroll(String userId, String routeId) {
         if (userId == null || routeId == null) {
-            throw new InvalidEnrollmentException("User or route does not exist");
+            throw new InvalidEnrollmentException("User or route ID is null");
         }
         String trimmedUserId = userId.trim();
         String trimmedRouteId = routeId.trim();
 
         if (trimmedUserId.isEmpty() || trimmedRouteId.isEmpty()) {
-            throw new InvalidEnrollmentException("User or route does not exist");
+            throw new InvalidEnrollmentException("User or route ID es empty");
         }
 
         User user = new User(userId, "Sample User");

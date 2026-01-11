@@ -6,8 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -37,37 +35,10 @@ public class CreateEnrollmentUseCaseTest {
     }
 
 
-    @Test
-    void testNullIdEnrollment_throwsException() {
-        String NON_VALID_USER_ID = null;
-        String NON_VALID_ROUTE_ID = null;
-
-
-        // Then
-        assertThatThrownBy(() ->
-                enrollmentUseCase.enroll(NON_VALID_USER_ID, NON_VALID_ROUTE_ID)
-        )
-                .isInstanceOf(InvalidEnrollmentException.class)
-                .hasMessage("User or route does not exist");
-    }
-
-    @Test
-    void testEmptyEnrollment_throwsException() {
-        // Given a non valid user ID or route ID
-        String NON_VALID_USER_ID = "";
-        String NON_VALID_ROUTE_ID = "";
-
-
-        // Then
-        assertThatThrownBy(() ->
-                enrollmentUseCase.enroll(NON_VALID_USER_ID, NON_VALID_ROUTE_ID)
-        )
-                .isInstanceOf(InvalidEnrollmentException.class)
-                .hasMessage("User or route does not exist");
-    }
-
+    // Throws an exception when attempting to create an enrollment with empty userId or routeId
     @ParameterizedTest
-    @CsvSource({"'', route-1",
+    @CsvSource(
+            value = {"'', route-1",
             "'   ', route-1",
             "'\t', route-1",
             "'\n', route-1",
@@ -75,15 +46,26 @@ public class CreateEnrollmentUseCaseTest {
             "user-1, '    '",
             "user-1, '\t'",
             "user-1, '\n'"})
-    void testNonValidEnrollment_throwsException(String userId, String routeId) {
+    void testNonValidEmptyIdEnrollment_throwsException(String userId, String routeId) {
         assertThatThrownBy(() ->
                 enrollmentUseCase.enroll(userId, routeId)
         )
                 .isInstanceOf(InvalidEnrollmentException.class)
-                .hasMessage("User or route does not exist");
+                .hasMessage("User or route ID es empty");
     }
 
-
-
+    // Throws an exception when attempting to create an enrollment with null userId or routeId
+    @ParameterizedTest
+    @CsvSource(
+            value = {"null, route-1",
+                    "user-1, null"},
+            nullValues = "null")
+    void testNonValidNullIdEnrollment_throwsException(String userId, String routeId) {
+        assertThatThrownBy(() ->
+                enrollmentUseCase.enroll(userId, routeId)
+        )
+                .isInstanceOf(InvalidEnrollmentException.class)
+                .hasMessage("User or route ID is null");
+    }
 
 }
