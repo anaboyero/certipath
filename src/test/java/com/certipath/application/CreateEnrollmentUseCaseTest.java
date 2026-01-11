@@ -2,40 +2,78 @@ package com.certipath.application;
 
 import com.certipath.application.exceptions.InvalidEnrollmentException;
 import com.certipath.domain.Enrollment;
+import com.certipath.domain.Route;
+import com.certipath.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class CreateEnrollmentUseCaseTest {
 
+    // atributos de clase
+
+    @Mock private UserPort userPort;
+    @Mock private RoutePort routePort;
+
+        // objetos mockeados
+
+    User mockUser = new User("mock-user-123", "Mocked User");
+    Route mockRoute = new Route("mock-route-456", "Mocked Route");
+
+    User realUser = new User("real-user-789", "Real User");
+    Route realRoute = new Route("real-route-012", "Real Route");
+
+    // servicio a probar
     private EnrollmentUseCase enrollmentUseCase;
 
     @BeforeEach
             void setUp() {
-        enrollmentUseCase = new EnrollmentUseCase();
+        enrollmentUseCase = new EnrollmentUseCase(userPort, routePort);
     }
 
     @Test
     void testValidEnrollment() {
-        // Given a valid user ID and route ID
-        String VALID_USER_ID = "user-123";
-        String VALID_ROUTE_ID = "route-456";
+        // Given any valid user ID and route ID.
+
+        when(userPort.findUserById(anyString()))
+                .thenReturn(Optional.of(mockUser));
+        when(routePort.findRouteById(anyString()))
+                .thenReturn(Optional.of(mockRoute));
 
         // When CreateEnrollmentUseCase is executed
-        Enrollment enrollment = enrollmentUseCase.enroll(VALID_USER_ID, VALID_ROUTE_ID);
+        Enrollment enrollment = enrollmentUseCase.enroll("123", "256");
 
         // Then verify the enrollment is created correctly.
-        assertThat(enrollment.getUser().getId()).isEqualTo(VALID_USER_ID);
-        assertThat(enrollment.getRoute().getId()).isEqualTo(VALID_ROUTE_ID);
+        assertThat(enrollment.getUser()).isEqualTo(mockUser);
+        assertThat(enrollment.getRoute()).isEqualTo(mockRoute);
         assertThat(enrollment.getEnrolledAt()).isNotNull();
     }
 
+    @ParameterizedTest
+    @CsvSource(
+            value = {"null, route-1",
+                    "user-1, null"},
+            nullValues = "null")
+    void testNonValidNullIdEnrollment_throwsException(String userId, String routeId) {
+        assertThatThrownBy(() ->
+                enrollmentUseCase.enroll(userId, routeId)
+        )
+                .isInstanceOf(InvalidEnrollmentException.class)
+                .hasMessage("User or route ID is null");
+    }
 
-    // Throws an exception when attempting to create an enrollment with empty userId or routeId
     @ParameterizedTest
     @CsvSource(
             value = {"'', route-1",
@@ -52,20 +90,6 @@ public class CreateEnrollmentUseCaseTest {
         )
                 .isInstanceOf(InvalidEnrollmentException.class)
                 .hasMessage("User or route ID es empty");
-    }
-
-    // Throws an exception when attempting to create an enrollment with null userId or routeId
-    @ParameterizedTest
-    @CsvSource(
-            value = {"null, route-1",
-                    "user-1, null"},
-            nullValues = "null")
-    void testNonValidNullIdEnrollment_throwsException(String userId, String routeId) {
-        assertThatThrownBy(() ->
-                enrollmentUseCase.enroll(userId, routeId)
-        )
-                .isInstanceOf(InvalidEnrollmentException.class)
-                .hasMessage("User or route ID is null");
     }
 
 }
