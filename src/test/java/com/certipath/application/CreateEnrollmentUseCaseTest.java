@@ -46,7 +46,7 @@ public class CreateEnrollmentUseCaseTest {
                 enrollmentUseCase.enroll(NON_VALID_USER_ID, NON_VALID_ROUTE_ID)
         )
                 .isInstanceOf(InvalidEnrollmentException.class)
-                .hasMessage("User or route not valid");
+                .hasMessage("User or route does not exist");
     }
 
 }

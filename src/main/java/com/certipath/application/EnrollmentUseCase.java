@@ -11,12 +11,10 @@ public class EnrollmentUseCase {
     }
 
     Enrollment enroll(String userId, String routeId) {
-        if (userId == null || userId.isEmpty()) {
-            throw new InvalidEnrollmentException("User or route not valid");
+        if (userId == null || userId.isEmpty() || routeId == null || routeId.isEmpty()) {
+            throw new InvalidEnrollmentException("User or route does not exist");
         }
-        if (routeId == null || routeId.isEmpty()) {
-            throw new InvalidEnrollmentException("User or route not valid");
-        }
+
         User user = new User(userId, "Sample User");
         Route route = new Route(routeId, "Sample Route");
         return new Enrollment(user, route);
