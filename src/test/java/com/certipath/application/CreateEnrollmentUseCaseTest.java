@@ -5,6 +5,7 @@ import com.certipath.domain.Enrollment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -66,14 +67,23 @@ public class CreateEnrollmentUseCaseTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", "   ", "\t", "\n"})
-    void testNonValidEnrollment_throwsException(String userId) {
+    @CsvSource({"'', route-1",
+            "'   ', route-1",
+            "'\t', route-1",
+            "'\n', route-1",
+            "user-1, ''",
+            "user-1, '    '",
+            "user-1, '\t'",
+            "user-1, '\n'"})
+    void testNonValidEnrollment_throwsException(String userId, String routeId) {
         assertThatThrownBy(() ->
-                enrollmentUseCase.enroll(userId, "a route id")
+                enrollmentUseCase.enroll(userId, routeId)
         )
                 .isInstanceOf(InvalidEnrollmentException.class)
                 .hasMessage("User or route does not exist");
     }
+
+
 
 
 }
