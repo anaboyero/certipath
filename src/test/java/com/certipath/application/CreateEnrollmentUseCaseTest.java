@@ -22,6 +22,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class CreateEnrollmentUseCaseTest {
 
+    // Pruebo el caso de uso de crear una inscripción en función de los IDs de usuario y ruta, que mockeo.
+
     // atributos de clase
 
     @Mock private UserPort userPort;
@@ -49,7 +51,7 @@ public class CreateEnrollmentUseCaseTest {
         when(routePort.findRouteById(anyString()))
                 .thenReturn(Optional.of(mockRoute));
 
-        // When the enrollment use case is executed with valid IDs
+        // When the enrollment use case is executed with existing IDs
         Enrollment enrollment = enrollmentUseCase.enroll("123", "256");
 
         // Then a new enrollment is created with the expected data
@@ -63,7 +65,7 @@ public class CreateEnrollmentUseCaseTest {
             value = {"null, route-1",
                     "user-1, null"},
             nullValues = "null")
-    void testNonValidNullIdEnrollment_throwsException(String userId, String routeId) {
+    void testNullIdEnrollment_throwsException(String userId, String routeId) {
         assertThatThrownBy(() ->
                 enrollmentUseCase.enroll(userId, routeId)
         )
@@ -81,7 +83,7 @@ public class CreateEnrollmentUseCaseTest {
             "user-1, '    '",
             "user-1, '\t'",
             "user-1, '\n'"})
-    void testNonValidEmptyIdEnrollment_throwsException(String userId, String routeId) {
+    void testEmptyIdEnrollment_throwsException(String userId, String routeId) {
         assertThatThrownBy(() ->
                 enrollmentUseCase.enroll(userId, routeId)
         )
