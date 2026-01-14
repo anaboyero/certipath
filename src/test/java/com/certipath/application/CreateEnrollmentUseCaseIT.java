@@ -17,7 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 @SpringBootTest
 public class CreateEnrollmentUseCaseIT {
 
-    // Levanto la aplicación. Dado que existen unas rutas y usuarios en la base de datos,
+    // Levanto la aplicación e inyecto los servicios. Dado que existen unas rutas y usuarios en la base de datos,
     // veo si al intentar crear una inscripción con IDs
     // la aplicación encuentra o no esos datos correctamente.
 
