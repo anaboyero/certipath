@@ -26,7 +26,7 @@ public class EnrollmentUseCase {
         String trimmedRouteId = routeId.trim();
 
         if (trimmedUserId.isEmpty() || trimmedRouteId.isEmpty()) {
-            throw new InvalidEnrollmentException("User or route ID es empty");
+            throw new InvalidEnrollmentException("User or route ID is empty");
         }
 
         Optional<User> user = userPort.findUserById(trimmedUserId);
